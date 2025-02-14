@@ -11,9 +11,20 @@ body {margin:0; padding:0;}
     background-color:#222d32;
     height:36px;
 }
-@media screen and (max-width:768px){
+@media screen and (max-width: 1000px){
     .cms-toolbar {
-        display:none
+        width: 100%;
+        height: auto;
+        position: fixed;
+    }
+    .cms-toolbar a {
+        float: left;
+    }
+}
+@media screen and (max-width: 604px) {
+    .cms-toolbar a {
+        text-align: center;
+        float: none;
     }
 }
 .cms-toolbar--bottom {
