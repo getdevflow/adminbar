@@ -8,8 +8,11 @@ use App\Shared\Services\Utils;
 use Qubus\EventDispatcher\ActionFilter\Action;
 use Qubus\EventDispatcher\ActionFilter\Filter;
 
+use function App\Shared\Helpers\admin_login_url;
+use function App\Shared\Helpers\admin_logout_url;
 use function App\Shared\Helpers\admin_url;
 use function App\Shared\Helpers\ae;
+use function App\Shared\Helpers\cms_get_current_user;
 use function App\Shared\Helpers\get_all_content_types;
 use function App\Shared\Helpers\get_content_by_id;
 use function App\Shared\Helpers\get_secure_cookie_data;
@@ -23,7 +26,7 @@ if(isset($_COOKIE['SWITCH_USERBACK'])) {
     $cookie = get_secure_cookie_data(key: 'SWITCH_USERBACK');
 }
 $contentType = get_all_content_types();
-$user = \App\Shared\Helpers\get_current_user();
+$user = cms_get_current_user();
 $option = Options::factory();
 ?>
 <!-- Start Administration Bar -->
@@ -153,11 +156,12 @@ $option = Options::factory();
                     </li>
                 <?php endif; ?>
                 <li>
-                    <a href="<?= admin_url('logout/') . '?redirect_to=' . admin_url('login/'); ?>">
+                    <a href="<?=admin_logout_url(admin_login_url());?>">
                         <?= esc_html__('Logout', $param['plugin']['id']); ?>
                     </a>
                 </li>
             </ul>
         </li>
+    </ul>
 </nav>
 <?php }); ?>
