@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AdminBar\n"
-"POT-Creation-Date: 2024-12-12 07:59-0800\n"
-"PO-Revision-Date: 2024-12-12 07:59-0800\n"
+"POT-Creation-Date: 2026-05-11 19:33-0600\n"
+"PO-Revision-Date: 2026-05-11 19:33-0600\n"
 "Last-Translator: \n"
 "Language-Team: Joshua Parker\n"
 "Language: en_US\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Domain: adminbar\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: t__;esc_html__\n"
@@ -19,79 +19,83 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: locale\n"
 "X-Poedit-SearchPathExcluded-1: assets\n"
 
-#: AdminBarPlugin.php:37
+#: AdminBarPlugin.php:35
 msgid "AdminBar"
 msgstr ""
 
-#: view/index.phtml:48
+#: AdminBarPlugin.php:39
+msgid "Adds an admin bar to Devflow site."
+msgstr ""
+
+#: view/index.phtml:53
 msgid "Documentation"
 msgstr ""
 
-#: view/index.phtml:49
+#: view/index.phtml:54
 msgid "Rest API Docs"
 msgstr ""
 
-#: view/index.phtml:50
+#: view/index.phtml:55
 msgid "Submit Issue"
 msgstr ""
 
-#: view/index.phtml:74
+#: view/index.phtml:79
 msgid "Visit Site"
 msgstr ""
 
-#: view/index.phtml:74
+#: view/index.phtml:79
 msgid "Dashboard"
 msgstr ""
 
-#: view/index.phtml:78
+#: view/index.phtml:83
 msgid "Manage Sites"
 msgstr ""
 
-#: view/index.phtml:79
+#: view/index.phtml:84
 msgid "Manage Plugins"
 msgstr ""
 
-#: view/index.phtml:80
+#: view/index.phtml:85
 msgid "Manage Users"
 msgstr ""
 
-#: view/index.phtml:81
+#: view/index.phtml:86
 msgid "General Options"
 msgstr ""
 
-#: view/index.phtml:82
+#: view/index.phtml:87
 msgid "Reading Options"
 msgstr ""
 
-#: view/index.phtml:108 view/index.phtml:113
+#: view/index.phtml:113 view/index.phtml:118
 msgid "New"
 msgstr ""
 
-#: view/index.phtml:115
+#: view/index.phtml:120
 msgid "New User"
 msgstr ""
 
-#: view/index.phtml:124
+#: view/index.phtml:129
 msgid "Update Content"
 msgstr ""
 
-#: view/index.phtml:132
+#: view/index.phtml:137
 msgid "Flush Cache"
 msgstr ""
 
-#: view/index.phtml:139
+#: view/index.phtml:144
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: view/index.phtml:145
+#: view/index.phtml:150
 msgid "Profile"
 msgstr ""
 
-#: view/index.phtml:151
+#: view/index.phtml:156
 msgid "Switch back"
 msgstr ""
 
-#: view/index.phtml:157
+#: view/index.phtml:162
 msgid "Logout"
 msgstr ""
