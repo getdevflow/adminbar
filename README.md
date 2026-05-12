@@ -1,14 +1,15 @@
 
 # Admin Bar
+
 Adds a backend admin bar to a Devflow site.
 
-> __Requires__ Devflow Version: 1.2.0
+> __Requires__ Devflow Version: 2.x
 
-> __Tested Up To:__ 1.2.0
+> __Tested Up To:__ 2.0.0
 
-> __Requires PHP:__ 8.3+
+> __Requires PHP:__ 8.4+
 
-> __Stable Tag:__ 2.0.0
+> __Stable Tag:__ 3.0.0
 
 > __License:__ GPLv2-only
 
@@ -19,14 +20,16 @@ Adds a backend admin bar to a Devflow site.
 - Action hooks and filters.
 
 ## Localization
-* English
-* Spanish
+Portuguese, Chines (Simplified), German, English, Spanish, French, Italian Japanese, and Russian
 
 ## Composer Installation
 1. Start a new shell session.
 2. In the root of your install, run the following command ```composer require getdevflow/adminbar```.
 
 ## Changelog
+
+### 3.0.0
+- Updated for Devflow v2
 
 ### 2.0.0
 - Api change for enqueue functions
