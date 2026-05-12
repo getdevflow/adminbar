@@ -1,0 +1,107 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AdminBar\n"
+"POT-Creation-Date: 2026-05-11 19:32-0600\n"
+"PO-Revision-Date: 2026-05-11 19:32-0600\n"
+"Last-Translator: \n"
+"Language-Team: Joshua Parker\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: adminbar\n"
+"X-Generator: Poedit 3.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: t__;esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: locale\n"
+"X-Poedit-SearchPathExcluded-1: assets\n"
+
+#: AdminBarPlugin.php:35
+#, fuzzy
+msgid "AdminBar"
+msgstr "AdminBar"
+
+#: AdminBarPlugin.php:39
+#, fuzzy
+msgid "Adds an admin bar to Devflow site."
+msgstr "在 Devflow 网站中添加了管理栏。"
+
+#: view/index.phtml:53
+msgid "Documentation"
+msgstr "文档"
+
+#: view/index.phtml:54
+#, fuzzy
+msgid "Rest API Docs"
+msgstr "REST API 文档"
+
+#: view/index.phtml:55
+#, fuzzy
+msgid "Submit Issue"
+msgstr "提交议题"
+
+#: view/index.phtml:79
+msgid "Visit Site"
+msgstr "访问网站"
+
+#: view/index.phtml:79
+msgid "Dashboard"
+msgstr "仪表盘"
+
+#: view/index.phtml:83
+msgid "Manage Sites"
+msgstr "管理网站"
+
+#: view/index.phtml:84
+msgid "Manage Plugins"
+msgstr "管理插件"
+
+#: view/index.phtml:85
+msgid "Manage Users"
+msgstr "管理用户"
+
+#: view/index.phtml:86
+msgid "General Options"
+msgstr "常规选项"
+
+#: view/index.phtml:87
+msgid "Reading Options"
+msgstr "阅读选项"
+
+#: view/index.phtml:113 view/index.phtml:118
+#, fuzzy
+msgid "New"
+msgstr "新"
+
+#: view/index.phtml:120
+msgid "New User"
+msgstr "新用户"
+
+#: view/index.phtml:129
+#, fuzzy
+msgid "Update Content"
+msgstr "更新内容"
+
+#: view/index.phtml:137
+msgid "Flush Cache"
+msgstr "刷新缓存"
+
+#: view/index.phtml:144
+#, php-format
+msgid "Hello %s"
+msgstr "您好 %s"
+
+#: view/index.phtml:150
+msgid "Profile"
+msgstr "个人资料"
+
+#: view/index.phtml:156
+msgid "Switch back"
+msgstr "切换回经典Divi 生成器"
+
+#: view/index.phtml:162
+msgid "Logout"
+msgstr "注销"

@@ -1,0 +1,108 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AdminBar\n"
+"POT-Creation-Date: 2026-05-11 19:34-0600\n"
+"PO-Revision-Date: 2026-05-11 19:34-0600\n"
+"Last-Translator: \n"
+"Language-Team: Joshua Parker\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: adminbar\n"
+"X-Generator: Poedit 3.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: t__;esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: locale\n"
+"X-Poedit-SearchPathExcluded-1: assets\n"
+
+#: AdminBarPlugin.php:35
+#, fuzzy
+msgid "AdminBar"
+msgstr "AdminBar"
+
+#: AdminBarPlugin.php:39
+#, fuzzy
+msgid "Adds an admin bar to Devflow site."
+msgstr "Aggiunge una barra amministrativa al sito Devflow."
+
+#: view/index.phtml:53
+msgid "Documentation"
+msgstr "Documentazione"
+
+#: view/index.phtml:54
+#, fuzzy
+msgid "Rest API Docs"
+msgstr "Documentazione API REST"
+
+#: view/index.phtml:55
+#, fuzzy
+msgid "Submit Issue"
+msgstr "Invia il numero"
+
+#: view/index.phtml:79
+msgid "Visit Site"
+msgstr "Visita Sito"
+
+#: view/index.phtml:79
+msgid "Dashboard"
+msgstr "Bacheca"
+
+#: view/index.phtml:83
+msgid "Manage Sites"
+msgstr "Gestire i siti"
+
+#: view/index.phtml:84
+msgid "Manage Plugins"
+msgstr "Gestione dei plugin"
+
+#: view/index.phtml:85
+msgid "Manage Users"
+msgstr "Gestione Utenti"
+
+#: view/index.phtml:86
+msgid "General Options"
+msgstr "Opzioni Generali"
+
+#: view/index.phtml:87
+#, fuzzy
+msgid "Reading Options"
+msgstr "Opzioni di lettura"
+
+#: view/index.phtml:113 view/index.phtml:118
+#, fuzzy
+msgid "New"
+msgstr "Nuovo"
+
+#: view/index.phtml:120
+msgid "New User"
+msgstr "Nuovo Utente"
+
+#: view/index.phtml:129
+#, fuzzy
+msgid "Update Content"
+msgstr "Aggiornamento dei contenuti"
+
+#: view/index.phtml:137
+msgid "Flush Cache"
+msgstr "Cache a filo pavimento"
+
+#: view/index.phtml:144
+#, php-format
+msgid "Hello %s"
+msgstr "Ciao %s"
+
+#: view/index.phtml:150
+msgid "Profile"
+msgstr "Profilo"
+
+#: view/index.phtml:156
+msgid "Switch back"
+msgstr "Torna indietro"
+
+#: view/index.phtml:162
+msgid "Logout"
+msgstr "Esci"

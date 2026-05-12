@@ -1,0 +1,107 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AdminBar\n"
+"POT-Creation-Date: 2026-05-11 19:34-0600\n"
+"PO-Revision-Date: 2026-05-11 19:34-0600\n"
+"Last-Translator: \n"
+"Language-Team: Joshua Parker\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: adminbar\n"
+"X-Generator: Poedit 3.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: t__;esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: locale\n"
+"X-Poedit-SearchPathExcluded-1: assets\n"
+
+#: AdminBarPlugin.php:35
+#, fuzzy
+msgid "AdminBar"
+msgstr "AdminBar"
+
+#: AdminBarPlugin.php:39
+#, fuzzy
+msgid "Adds an admin bar to Devflow site."
+msgstr "Добавляет панель администратора на сайт Devflow."
+
+#: view/index.phtml:53
+msgid "Documentation"
+msgstr "Документация"
+
+#: view/index.phtml:54
+#, fuzzy
+msgid "Rest API Docs"
+msgstr "Документация REST API"
+
+#: view/index.phtml:55
+#, fuzzy
+msgid "Submit Issue"
+msgstr "Выпуск для отправки"
+
+#: view/index.phtml:79
+msgid "Visit Site"
+msgstr "Посетить сайт"
+
+#: view/index.phtml:79
+msgid "Dashboard"
+msgstr "Панель управления"
+
+#: view/index.phtml:83
+msgid "Manage Sites"
+msgstr "Управление сайтами"
+
+#: view/index.phtml:84
+msgid "Manage Plugins"
+msgstr "Управление плагинами"
+
+#: view/index.phtml:85
+msgid "Manage Users"
+msgstr "Управление пользователями"
+
+#: view/index.phtml:86
+msgid "General Options"
+msgstr "Общие настройки"
+
+#: view/index.phtml:87
+#, fuzzy
+msgid "Reading Options"
+msgstr "Варианты чтения"
+
+#: view/index.phtml:113 view/index.phtml:118
+msgid "New"
+msgstr "Новый"
+
+#: view/index.phtml:120
+msgid "New User"
+msgstr "Новый пользователь"
+
+#: view/index.phtml:129
+msgid "Update Content"
+msgstr "Обновить Контент"
+
+#: view/index.phtml:137
+msgid "Flush Cache"
+msgstr "Очистить кэш"
+
+#: view/index.phtml:144
+#, php-format
+msgid "Hello %s"
+msgstr "Здравствуйте %s"
+
+#: view/index.phtml:150
+msgid "Profile"
+msgstr "Профиль"
+
+#: view/index.phtml:156
+#, fuzzy
+msgid "Switch back"
+msgstr "Переключиться назад"
+
+#: view/index.phtml:162
+msgid "Logout"
+msgstr "Выйти"

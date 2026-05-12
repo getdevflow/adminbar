@@ -1,0 +1,106 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AdminBar\n"
+"POT-Creation-Date: 2026-05-11 19:32-0600\n"
+"PO-Revision-Date: 2026-05-11 19:32-0600\n"
+"Last-Translator: \n"
+"Language-Team: Joshua Parker\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: adminbar\n"
+"X-Generator: Poedit 3.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: t__;esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: locale\n"
+"X-Poedit-SearchPathExcluded-1: assets\n"
+
+#: AdminBarPlugin.php:35
+#, fuzzy
+msgid "AdminBar"
+msgstr "AdminBar"
+
+#: AdminBarPlugin.php:39
+#, fuzzy
+msgid "Adds an admin bar to Devflow site."
+msgstr "Fügt einer Admin-Leiste zur Devflow-Seite hinzu."
+
+#: view/index.phtml:53
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: view/index.phtml:54
+#, fuzzy
+msgid "Rest API Docs"
+msgstr "Rest API Docs"
+
+#: view/index.phtml:55
+#, fuzzy
+msgid "Submit Issue"
+msgstr "Ausgabe einreichen"
+
+#: view/index.phtml:79
+msgid "Visit Site"
+msgstr "Seite besuchen"
+
+#: view/index.phtml:79
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: view/index.phtml:83
+msgid "Manage Sites"
+msgstr "Webseiten verwalten"
+
+#: view/index.phtml:84
+msgid "Manage Plugins"
+msgstr "Plugins verwalten"
+
+#: view/index.phtml:85
+msgid "Manage Users"
+msgstr "Benutzer verwalten"
+
+#: view/index.phtml:86
+msgid "General Options"
+msgstr "Allgemeine Optionen"
+
+#: view/index.phtml:87
+#, fuzzy
+msgid "Reading Options"
+msgstr "Leseoptionen"
+
+#: view/index.phtml:113 view/index.phtml:118
+msgid "New"
+msgstr "Neu"
+
+#: view/index.phtml:120
+msgid "New User"
+msgstr "Neuer Benutzer"
+
+#: view/index.phtml:129
+msgid "Update Content"
+msgstr "Inhalt aktualisieren"
+
+#: view/index.phtml:137
+msgid "Flush Cache"
+msgstr "Cache Leeren"
+
+#: view/index.phtml:144
+#, php-format
+msgid "Hello %s"
+msgstr "Hallo %s"
+
+#: view/index.phtml:150
+msgid "Profile"
+msgstr "Profil"
+
+#: view/index.phtml:156
+msgid "Switch back"
+msgstr "Zurückschalten"
+
+#: view/index.phtml:162
+msgid "Logout"
+msgstr "Abmelden"
