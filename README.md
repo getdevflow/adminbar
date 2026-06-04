@@ -22,9 +22,9 @@ Adds a backend admin bar to a Devflow site.
 ## Localization
 Portuguese, Chines (Simplified), German, English, Spanish, French, Italian Japanese, and Russian
 
-## Composer Installation
+## Codex Installation
 1. Start a new shell session.
-2. In the root of your install, run the following command ```composer require getdevflow/adminbar```.
+2. In the root of your install, run the following command ```php codex plugin:install getdevflow/adminbar```.
 
 ## Changelog
 
