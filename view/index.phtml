@@ -51,7 +51,8 @@ $meta = $plugin->meta();
                 <li><a href="//github.com/getdevflow/cmf/"><?= esc_html('About Devflow'); ?></a></li>
                 <li><a href="//getdevflow.com/"><?= esc_html('GetDevflow.com'); ?></a></li>
                 <li><a href="//docs.getdevflow.com"><?= esc_html__('Documentation', $meta['id']); ?></a></li>
-                <li><a href="//docs.getdevflow.com/nav/services/rest-api/"><?= esc_html__('Rest API Docs', $meta['id']); ?></a></li>
+                <li><a href="//docs.getdevflow.com/development/rest-api/"><?= esc_html__('Rest API Docs', $meta['id']); ?></a></li>
+                <li><a href="//github.com/getdevflow/cmf/discussions"><?= esc_html__('Forum', $meta['id']); ?></a></li>
                 <li<?= ae('access:admin'); ?>><a href="//github.com/getdevflow/cmf/issues"><?= esc_html__('Submit Issue', $meta['id']); ?></a></li>
             </ul>
         </li>
@@ -115,7 +116,7 @@ $meta = $plugin->meta();
             </a>
             <ul>
                 <?php if ($contentType !== null) : foreach ($contentType as $type) { ?>
-                    <li<?= ae('create:content'); ?>><a href="<?= admin_url('content-type/' . $type['slug'] . '/create/'); ?>"><?= esc_html__('New', $meta['id']); ?> <?= ucfirst($type['slug']); ?></a></li>
+                    <li<?= ae('create:content'); ?>><a href="<?= admin_url(sprintf('content-type/%s/create/', $type['slug'])); ?>"><?= esc_html__('New', $meta['id']); ?> <?= ucfirst($type['slug']); ?></a></li>
                 <?php } endif; ?>
                 <li<?= ae('create:users'); ?>><a href="<?= admin_url('user/create/'); ?>"><?= esc_html__('New User', $meta['id']); ?></a></li>
                 <?php Action::getInstance()->doAction('adminbar_new_submenu'); ?>
@@ -124,7 +125,7 @@ $meta = $plugin->meta();
 
         <?php if (!Utils::isAdmin() && r::getInstance()->has('contentId')) : $content = get_content_by_id(r::getInstance()->get('contentId')); ?>
             <li<?= ae('update:content'); ?>>
-                <a href="<?= admin_url('content-type/' . $content->type . '/' . $content->id . '/'); ?>">
+                <a href="<?= admin_url(sprintf('content-type/%s/%s/', $content->type, $content->id)); ?>">
                     <span class="fa fa-save"></span>
                     <?= esc_html__('Update Content', $meta['id']); ?>
                 </a>
@@ -152,7 +153,7 @@ $meta = $plugin->meta();
                 </li>
                 <?php if (isset($_COOKIE['SWITCH_USERBACK'])) : ?>
                     <li>
-                        <a href="<?= admin_url('user/' . $cookie->id . '/switch-back/'); ?>">
+                        <a href="<?= admin_url(sprintf('user/%s/switch-back/', $cookie->id)); ?>">
                             <?= esc_html__('Switch back', $meta['id']); ?>
                         </a>
                     </li>

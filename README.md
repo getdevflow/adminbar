@@ -5,11 +5,11 @@ Adds a backend admin bar to a Devflow site.
 
 > __Requires__ Devflow Version: 2.x
 
-> __Tested Up To:__ 2.0.0
+> __Tested Up To:__ 2.2.1
 
 > __Requires PHP:__ 8.4+
 
-> __Stable Tag:__ 3.0.0
+> __Stable Tag:__ 3.0.1
 
 > __License:__ GPLv2-only
 
@@ -27,6 +27,9 @@ Portuguese, Chines (Simplified), German, English, Spanish, French, Italian Japan
 2. In the root of your install, run the following command ```composer require getdevflow/adminbar```.
 
 ## Changelog
+
+### 3.0.1
+- Fixed info links
 
 ### 3.0.0
 - Updated for Devflow v2

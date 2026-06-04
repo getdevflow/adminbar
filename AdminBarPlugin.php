@@ -35,7 +35,7 @@ class AdminBarPlugin extends Plugin
             'name' => esc_html__(string: 'AdminBar', domain: 'adminbar'),
             'id' => 'adminbar',
             'author' => 'Joshua Parker',
-            'version' => '2.0.0',
+            'version' => '3.0.1',
             'description' => t__(msgid: 'Adds an admin bar to Devflow site.', domain: 'adminbar'),
             'basename' => plugin_basename(dirname(__FILE__)),
             'path' => plugin_dir_path(dirname(__FILE__)),
@@ -61,7 +61,9 @@ class AdminBarPlugin extends Plugin
     }
 
     /**
-     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws ReflectionException
      */
     public function enqueueCss(): void
     {
