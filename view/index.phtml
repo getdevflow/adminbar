@@ -14,6 +14,7 @@ use function App\Shared\Helpers\admin_logout_url;
 use function App\Shared\Helpers\admin_url;
 use function App\Shared\Helpers\ae;
 use function App\Shared\Helpers\cms_get_current_user;
+use function App\Shared\Helpers\current_user_can;
 use function App\Shared\Helpers\get_all_content_types;
 use function App\Shared\Helpers\get_content_by_id;
 use function App\Shared\Helpers\get_option;
@@ -139,6 +140,22 @@ $meta = $plugin->meta();
             </a>
         </li>
 
+        <?php if (current_user_can(perm: 'update:content')) : ?>
+            <li class="cms-toolbar-dropdown cms-toolbar-notifications">
+                <a href="#" class="cms-toolbar-notification-toggle">
+                    <span class="fa fa-bell"></span>
+                    <span class="cms-toolbar-label"><?= esc_html__(string: 'Workflow', domain: 'adminbar'); ?></span>
+                    <span class="cms-toolbar-badge" id="adminbar-content-notification-count" hidden>0</span>
+                </a>
+
+                <ul id="adminbar-content-notification-list">
+                    <li>
+                        <a href="#"><?= esc_html__(string: 'No workflow notifications', domain: 'adminbar'); ?></a>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
+
         <li class="cms-toolbar-dropdown">
             <a href="#">
                 <span class="fa fa-user"></span>
@@ -166,4 +183,8 @@ $meta = $plugin->meta();
             </ul>
         </li>
     </ul>
+    <script>
+        window.DevflowAdminBar = window.DevflowAdminBar || {};
+        window.DevflowAdminBar.adminUrl = '<?= admin_url(); ?>';
+    </script>
 </nav>

@@ -14,6 +14,7 @@ use Qubus\Exception\Exception;
 use ReflectionException;
 
 use function App\Shared\Helpers\cms_enqueue_css;
+use function App\Shared\Helpers\cms_enqueue_js;
 use function App\Shared\Helpers\is_user_logged_in;
 use function App\Shared\Helpers\plugin_basename;
 use function App\Shared\Helpers\plugin_dir_path;
@@ -35,7 +36,7 @@ class AdminBarPlugin extends Plugin
             'name' => esc_html__(string: 'AdminBar', domain: 'adminbar'),
             'id' => 'adminbar',
             'author' => 'Joshua Parker',
-            'version' => '3.0.1',
+            'version' => '3.0.2',
             'description' => t__(msgid: 'Adds an admin bar to Devflow site.', domain: 'adminbar'),
             'basename' => plugin_basename(dirname(__FILE__)),
             'path' => plugin_dir_path(dirname(__FILE__)),
@@ -58,6 +59,7 @@ class AdminBarPlugin extends Plugin
     {
         Action::getInstance()->addAction('init', [$this, 'render'], 1);
         Action::getInstance()->addAction('cms_admin_head', [$this, 'enqueueCss'], 99);
+        Action::getInstance()->addAction('cms_admin_footer', [$this, 'enqueueJs'], 99);
     }
 
     /**
@@ -70,6 +72,21 @@ class AdminBarPlugin extends Plugin
         cms_enqueue_css(
             config: 'plugin',
             asset: $this->url() . '/css/style.css',
+            slug: $this->id()
+        );
+    }
+
+    /**
+     * @return void
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws ReflectionException
+     */
+    public function enqueueJs(): void
+    {
+        cms_enqueue_js(
+            config: 'plugin',
+            asset: $this->url() . '/js/adminbar.js',
             slug: $this->id()
         );
     }
