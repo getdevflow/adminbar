@@ -36,7 +36,7 @@ class AdminBarPlugin extends Plugin
             'name' => esc_html__(string: 'AdminBar', domain: 'adminbar'),
             'id' => 'adminbar',
             'author' => 'Joshua Parker',
-            'version' => '3.0.2',
+            'version' => '3.0.3',
             'description' => t__(msgid: 'Adds an admin bar to Devflow site.', domain: 'adminbar'),
             'basename' => plugin_basename(dirname(__FILE__)),
             'path' => plugin_dir_path(dirname(__FILE__)),
