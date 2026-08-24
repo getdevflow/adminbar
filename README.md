@@ -5,11 +5,11 @@ Adds a backend admin bar to a Devflow site.
 
 > __Requires__ Devflow Version: 2.x
 
-> __Tested Up To:__ 2.4.1
+> __Tested Up To:__ 2.6.0
 
 > __Requires PHP:__ 8.4+
 
-> __Stable Tag:__ 3.0.3
+> __Stable Tag:__ 3.1.0
 
 > __License:__ GPLv2-only
 
@@ -27,6 +27,9 @@ Portuguese, Chines (Simplified), German, English, Spanish, French, Italian Japan
 2. In the root of your install, run the following command ```php codex plugin:install getdevflow/adminbar```.
 
 ## Changelog
+
+### 3.1.0
+- Fix to work on frontend
 
 ### 3.0.3
 - Remove old option screens

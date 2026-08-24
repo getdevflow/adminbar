@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Application\Devflow;
 use App\Shared\Services\Registry as r;
 use App\Shared\Services\Utils;
-use Plugin\AdminBar\AdminBarPlugin;
 use Qubus\EventDispatcher\ActionFilter\Action;
 use Qubus\EventDispatcher\ActionFilter\Filter;
 
@@ -21,54 +19,72 @@ use function App\Shared\Helpers\get_option;
 use function App\Shared\Helpers\get_secure_cookie_data;
 use function App\Shared\Helpers\get_user_avatar;
 use function App\Shared\Helpers\site_url;
+use function Qubus\Security\Helpers\esc_attr;
+use function Qubus\Security\Helpers\esc_attr__;
 use function Qubus\Security\Helpers\esc_html;
 use function Qubus\Security\Helpers\esc_html__;
+use function Qubus\Security\Helpers\esc_url;
+use function Qubus\Security\Helpers\t__;
 
-if(isset($_COOKIE['SWITCH_USERBACK'])) {
-    $cookie = get_secure_cookie_data(key: 'SWITCH_USERBACK');
-}
+$switchUser = isset($_COOKIE['SWITCH_USERBACK'])
+? get_secure_cookie_data(key: 'SWITCH_USERBACK')
+: false;
 $contentType = get_all_content_types();
 $user = cms_get_current_user();
-$plugin = Devflow::$PHP->make(AdminBarPlugin::class);
-$meta = $plugin->meta();
+$meta = $plugin;
+$context = Utils::isAdmin() ? 'backend' : 'frontend';
+$placement = ($fallback ?? false) ? 'fallback' : 'native';
 ?>
 <!-- Start Administration Bar -->
-<script type="text/javascript">
-    function showNav(el) {
-        el.getElementsByTagName('UL')[0].style.left = 'auto';
-    }
-    function hideNav(el) {
-        el.getElementsByTagName('UL')[0].style.left = '-999em';
-    }
-</script>
-
-<nav id="cms_adminbar" class="cms-toolbar navbar navbar-static-top" role="navigation" aria-label="Devflow admin toolbar">
+<nav
+    id="cms_adminbar"
+    class="cms-toolbar"
+    role="navigation"
+    aria-label="<?= esc_attr__(string: 'Devflow admin toolbar', domain: 'adminbar'); ?>"
+    data-admin-url="<?= esc_attr(admin_url()); ?>"
+    data-context="<?= esc_attr($context); ?>"
+    data-placement="<?= esc_attr($placement); ?>"
+>
     <ul class="cms-toolbar-base">
-        <li class='cms-toolbar-dropdown' onmouseover="showNav(this)" onmouseout="hideNav(this)">
-            <a href="#" onclick="return false">
-                <span class="fa fa-info"></span>
-            </a>
+        <li class="cms-toolbar-dropdown">
+            <button type="button" class="cms-toolbar-toggle" aria-expanded="false">
+                <span class="fa fa-info" aria-hidden="true"></span>
+                <span class="cms-toolbar-label"></span>
+                <span class="fa fa-chevron-down" aria-hidden="true"></span>
+            </button>
             <ul>
-                <li><a href="//github.com/getdevflow/cmf/"><?= esc_html('About Devflow'); ?></a></li>
-                <li><a href="//getdevflow.com/"><?= esc_html('GetDevflow.com'); ?></a></li>
-                <li><a href="//docs.getdevflow.com"><?= esc_html__('Documentation', $meta['id']); ?></a></li>
-                <li><a href="//docs.getdevflow.com/development/rest-api/"><?= esc_html__('Rest API Docs', $meta['id']); ?></a></li>
-                <li><a href="//github.com/getdevflow/cmf/discussions"><?= esc_html__('Forum', $meta['id']); ?></a></li>
-                <li<?= ae('access:admin'); ?>><a href="//github.com/getdevflow/cmf/issues"><?= esc_html__('Submit Issue', $meta['id']); ?></a></li>
+                <li><a href="https://github.com/getdevflow/cmf/"><?= esc_html('About Devflow'); ?></a></li>
+                <li><a href="https://getdevflow.com/"><?= esc_html('GetDevflow.com'); ?></a></li>
+                <li><a href="https://docs.getdevflow.com"><?= esc_html__('Documentation', $meta['id']); ?></a></li>
+                <li>
+                    <a href="https://docs.getdevflow.com/development/rest-api/">
+                        <?= esc_html__('Rest API Docs', $meta['id']); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/getdevflow/cmf/discussions">
+                        <?= esc_html__('Forum', $meta['id']); ?>
+                    </a>
+                </li>
+                <li<?= ae('access:admin'); ?>>
+                    <a href="https://github.com/getdevflow/cmf/issues">
+                        <?= esc_html__('Submit Issue', $meta['id']); ?>
+                    </a>
+                </li>
             </ul>
         </li>
         <?php if (Utils::isAdmin()) : ?>
             <li>
-                <a href="<?= site_url(); ?>">
-                    <span class="fa fa-home"></span>
-                    <?=get_option(key: 'sitename');?>
+                <a href="<?= esc_url(site_url()); ?>">
+                    <span class="fa fa-home" aria-hidden="true"></span>
+                    <?= esc_html((string) get_option(key: 'sitename')); ?>
                 </a>
             </li>
         <?php else : ?>
             <li>
-                <a href="<?= admin_url(); ?>">
-                    <span class="fa fa-tachometer-alt"></span>
-                    <?=get_option(key: 'sitename');?>
+                <a href="<?= esc_url(admin_url()); ?>">
+                    <span class="fa fa-dashboard aria-hidden="true"></span>
+                    <?= esc_html((string) get_option(key: 'sitename')); ?>
                 </a>
             </li>
         <?php endif; ?>
@@ -76,76 +92,101 @@ $meta = $plugin->meta();
         <?php
         $menu = [
             [
-                'Management', [
+                t__('Management', $meta['id']), [
                     [
-                        Utils::isAdmin() ? esc_html__('Visit Site', $meta['id']) : esc_html__('Dashboard', $meta['id']),
+                        Utils::isAdmin() ? t__('Visit Site', $meta['id']) : t__('Dashboard', $meta['id']),
                         Utils::isAdmin() ? site_url() : admin_url(),
                         'access:admin'
                     ],
-                    [esc_html__('Manage Sites', $meta['id']), admin_url('site/'), 'manage:sites'],
-                    [esc_html__('Manage Plugins', $meta['id']), admin_url('plugin/'), 'manage:plugins'],
-                    [esc_html__('Manage Users', $meta['id']), admin_url('user/'), 'manage:users'],
-                    [esc_html__('Settings', $meta['id']), admin_url('settings/'), 'change:settings'],
+                    [t__('Manage Sites', $meta['id']), admin_url('site/'), 'manage:sites'],
+                    [t__('Manage Plugins', $meta['id']), admin_url('plugin/'), 'manage:plugins'],
+                    [t__('Manage Users', $meta['id']), admin_url('user/'), 'manage:users'],
+                    [t__('Settings', $meta['id']), admin_url('settings/'), 'change:settings'],
                 ]
             ]
         ];
 
         $_menu = Filter::getInstance()->applyFilter('adminbar_management_menu', $menu);
 
-        foreach ($_menu as $menuitem) {
+        foreach (is_iterable($_menu) ? $_menu : [] as $menuitem) {
+            if (!isset($menuitem[0], $menuitem[1]) || !is_iterable($menuitem[1])) {
+                continue;
+            }
             ?>
-            <li class="cms-toolbar-dropdown" onmouseover="showNav(this)" onmouseout="hideNav(this)">
-                <a href="#" onclick="return false">
-                    <span class="fa fa-wrench"></span>
-                    <?= $menuitem[0]; ?>
-                    <span class="fa fa-chevron-down"></span>
-                </a>
+            <li class="cms-toolbar-dropdown">
+                <button type="button" class="cms-toolbar-toggle" aria-expanded="false">
+                    <span class="fa fa-wrench" aria-hidden="true"></span>
+            <?= esc_html((string) $menuitem[0]); ?>
+                    <span class="fa fa-chevron-down" aria-hidden="true"></span>
+                </button>
                 <ul> <?php foreach ($menuitem[1] as $item) { ?>
-                        <li<?= ae($item[2]); ?>><a href="<?= $item[1]; ?>"><?= $item[0]; ?></a></li>
-                    <?php } ?>
+                    <?php if (isset($item[0], $item[1], $item[2])) : ?>
+                            <li<?= ae((string) $item[2]); ?>>
+                                <a href="<?= esc_url((string) $item[1]); ?>">
+                        <?= esc_html((string) $item[0]); ?>
+                                </a>
+                            </li>
+                    <?php endif; ?>
+                     <?php } ?>
                 </ul>
             </li>
             <?php
         } ?>
 
-        <li class="cms-toolbar-dropdown" onmouseover="showNav(this)" onmouseout="hideNav(this)">
-            <a href="#" onclick="return false">
-                <span class="fa fa-plus"></span>
+        <li class="cms-toolbar-dropdown">
+            <button type="button" class="cms-toolbar-toggle" aria-expanded="false">
+                <span class="fa fa-plus" aria-hidden="true"></span>
                 <?= esc_html__('New', $meta['id']); ?>
-                <span class="fa fa-chevron-down"></span>
-            </a>
+                <span class="fa fa-chevron-down" aria-hidden="true"></span>
+            </button>
             <ul>
-                <?php if ($contentType !== null) : foreach ($contentType as $type) { ?>
-                    <li<?= ae('create:content'); ?>><a href="<?= admin_url(sprintf('content-type/%s/create/', $type['slug'])); ?>"><?= esc_html__('New', $meta['id']); ?> <?= ucfirst($type['slug']); ?></a></li>
-                <?php } endif; ?>
-                <li<?= ae('create:users'); ?>><a href="<?= admin_url('user/create/'); ?>"><?= esc_html__('New User', $meta['id']); ?></a></li>
+                <?php if (is_iterable($contentType)) :
+                    foreach ($contentType as $type) {
+                        $createUrl = admin_url(sprintf('content-type/%s/create/', $type['slug'])); ?>
+                    <li<?= ae('create:content'); ?>>
+                        <a href="<?= esc_url($createUrl); ?>">
+                        <?= esc_html__('New', $meta['id']); ?>
+                        <?= esc_html(ucfirst((string) $type['slug'])); ?>
+                        </a>
+                    </li>
+                    <?php }
+                endif; ?>
+                <li<?= ae('create:users'); ?>>
+                    <a href="<?= esc_url(admin_url('user/create/')); ?>">
+                        <?= esc_html__('New User', $meta['id']); ?>
+                    </a>
+                </li>
                 <?php Action::getInstance()->doAction('adminbar_new_submenu'); ?>
             </ul>
         </li>
 
-        <?php if (!Utils::isAdmin() && r::getInstance()->has('contentId')) : $content = get_content_by_id(r::getInstance()->get('contentId')); ?>
+        <?php if (!Utils::isAdmin() && r::getInstance()->has('contentId')) :
+            $content = get_content_by_id(r::getInstance()->get('contentId')); ?>
+            <?php if ($content !== false) : ?>
             <li<?= ae('update:content'); ?>>
-                <a href="<?= admin_url(sprintf('content-type/%s/%s/', $content->type, $content->id)); ?>">
-                    <span class="fa fa-save"></span>
-                    <?= esc_html__('Update Content', $meta['id']); ?>
+                <a href="<?= esc_url(admin_url(sprintf('content-type/%s/%s/', $content->type, $content->id))); ?>">
+                    <span class="fa fa-save" aria-hidden="true"></span>
+                <?= esc_html__('Update Content', $meta['id']); ?>
                 </a>
             </li>
+            <?php endif; ?>
         <?php endif; ?>
 
         <li<?= ae('manage:settings'); ?>>
-            <a href="<?= admin_url('flush-cache/'); ?>">
-                <span class="fa fa-broom"></span>
+            <a href="<?= esc_url(admin_url('flush-cache/')); ?>">
+                <span class="fa fa-broom" aria-hidden="true"></span>
                 <?= esc_html__('Flush Cache', $meta['id']); ?>
             </a>
         </li>
 
         <?php if (current_user_can(perm: 'update:content')) : ?>
             <li class="cms-toolbar-dropdown cms-toolbar-notifications">
-                <a href="#" class="cms-toolbar-notification-toggle">
-                    <span class="fa fa-bell"></span>
+                <button type="button" class="cms-toolbar-toggle cms-toolbar-notification-toggle" aria-expanded="false">
+                    <span class="fa fa-bell" aria-hidden="true"></span>
                     <span class="cms-toolbar-label"><?= esc_html__(string: 'Workflow', domain: 'adminbar'); ?></span>
                     <span class="cms-toolbar-badge" id="adminbar-content-notification-count" hidden>0</span>
-                </a>
+                    <span class="fa fa-chevron-down" aria-hidden="true"></span>
+                </button>
 
                 <ul id="adminbar-content-notification-list">
                     <li>
@@ -156,34 +197,37 @@ $meta = $plugin->meta();
         <?php endif; ?>
 
         <li class="cms-toolbar-dropdown">
-            <a href="#">
-                <span class="fa fa-user"></span>
-                <?= sprintf(esc_html__('Hello %s', $meta['id']), $user->fname); ?> <?= get_user_avatar($user->email, 26, 'user-image'); ?>
-                <span class="fa fa-chevron-down"></span>
-            </a>
+            <button type="button" class="cms-toolbar-toggle" aria-expanded="false">
+                <span class="fa fa-user" aria-hidden="true"></span>
+                <?= sprintf(
+                    esc_html__('Hello %s', $meta['id']),
+                    esc_html((string) $user->fname)
+                ); ?>
+                <?= get_user_avatar($user->email, 26, 'user-image'); ?>
+                <span class="fa fa-chevron-down" aria-hidden="true"></span>
+            </button>
             <ul>
                 <li>
-                    <a href="<?=admin_url('user/profile/'); ?>">
-                        <?=esc_html__('Profile', $meta['id']); ?>
+                    <a href="<?= esc_url(admin_url('user/profile/')); ?>">
+                        <?= esc_html__('Profile', $meta['id']); ?>
                     </a>
                 </li>
-                <?php if (isset($_COOKIE['SWITCH_USERBACK'])) : ?>
+                <?php if (is_object($switchUser) && isset($switchUser->id)) : ?>
                     <li>
-                        <a href="<?= admin_url(sprintf('user/%s/switch-back/', $cookie->id)); ?>">
-                            <?= esc_html__('Switch back', $meta['id']); ?>
+                        <a href="<?= esc_url(admin_url(sprintf('user/%s/switch-back/', $switchUser->id))); ?>">
+                    <?= esc_html__('Switch back', $meta['id']); ?>
                         </a>
                     </li>
                 <?php endif; ?>
                 <li>
-                    <a href="<?=admin_logout_url(admin_login_url());?>">
+                    <a href="<?= esc_url(admin_logout_url(admin_login_url())); ?>">
                         <?= esc_html__('Logout', $meta['id']); ?>
                     </a>
                 </li>
             </ul>
         </li>
     </ul>
-    <script>
-        window.DevflowAdminBar = window.DevflowAdminBar || {};
-        window.DevflowAdminBar.adminUrl = '<?= admin_url(); ?>';
-    </script>
 </nav>
+<?php if ($context === 'frontend' && $placement === 'native') : ?>
+    <div class="cms-adminbar-spacer" aria-hidden="true"></div>
+<?php endif; ?>

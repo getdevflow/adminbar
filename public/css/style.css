@@ -1,132 +1,247 @@
-body {
-    margin: 0;
-}
-
-.cms-toolbar {
+/* Devflow AdminBar. All rules are scoped so frontend themes remain untouched. */
+#cms_adminbar.cms-toolbar {
+    --cms-adminbar-background: #222d32;
+    --cms-adminbar-background-hover: #3b484e;
+    --cms-adminbar-border: #526067;
+    --cms-adminbar-foreground: #fff;
+    box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 2147483000;
     width: 100%;
-    min-height: 45px;
-    background-color: #222d32;
+    max-width: none;
+    min-height: 50px;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    color: var(--cms-adminbar-foreground);
+    background: var(--cms-adminbar-background);
+    font: 14px/1.25 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.24);
 }
 
-.cms-toolbar ul {
+#cms_adminbar,
+#cms_adminbar *,
+#cms_adminbar *::before,
+#cms_adminbar *::after {
+    box-sizing: border-box;
+}
+
+#cms_adminbar ul {
+    display: block;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    list-style: none;
+    overflow: visible;
+    text-align: left;
+}
+
+#cms_adminbar li {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    text-align: left;
+    text-transform: none;
+}
+
+#cms_adminbar .cms-toolbar-base {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    min-height: 50px;
+    overflow: visible;
+    text-align: left;
+}
+
+#cms_adminbar .cms-toolbar-base > li {
+    display: flex;
+    flex: 0 0 auto;
+    min-height: 45px;
     margin: 0;
     padding: 0;
-}
-
-.cms-toolbar ul li {
-    list-style: none;
-}
-
-.cms-toolbar > ul {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.cms-toolbar > ul > li {
-    display: block;
-    height: 45px;
-}
-
-.cms-toolbar > ul > li:last-of-type {
-    margin-left: auto;
-}
-
-.cms-toolbar a {
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    padding: 14px 12px;
-    line-height: 17px;
-}
-
-.cms-toolbar ul li:hover {
-    background-color: #454545;
-}
-
-.cms-toolbar-dropdown {
     position: relative;
 }
 
-.cms-toolbar-dropdown ul {
-    display: none;
-    position: absolute;
-    top: 45px;
-    left: 0;
-    background-color: #222d32;
-    min-width: 240px;
-    max-width: 320px;
-    box-shadow: 0 8px 16px rgba(0,0,0,.2);
-    z-index: 1001;
+#cms_adminbar .cms-toolbar-base > li:last-child {
+    margin-left: auto;
 }
 
-.cms-toolbar-dropdown:hover ul,
-.cms-toolbar-dropdown:focus-within ul {
+#cms_adminbar a,
+#cms_adminbar .cms-toolbar-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 45px;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 0.75rem;
+    color: var(--cms-adminbar-foreground);
+    background: transparent;
+    font: inherit;
+    line-height: 1.25;
+    text-align: left;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    appearance: none;
+}
+
+#cms_adminbar a:hover,
+#cms_adminbar a:focus-visible,
+#cms_adminbar .cms-toolbar-toggle:hover,
+#cms_adminbar .cms-toolbar-toggle:focus-visible,
+#cms_adminbar .cms-toolbar-dropdown.is-open > .cms-toolbar-toggle {
+    color: var(--cms-adminbar-foreground);
+    background: var(--cms-adminbar-background-hover);
+    outline: none;
+    text-decoration: none;
+}
+
+#cms_adminbar a:focus-visible,
+#cms_adminbar .cms-toolbar-toggle:focus-visible {
+    box-shadow: inset 0 0 0 2px #fff;
+}
+
+#cms_adminbar .cms-toolbar-dropdown > ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    min-width: 240px;
+    max-width: min(360px, 100vw);
+    margin: 0;
+    border: 1px solid var(--cms-adminbar-border);
+    color: var(--cms-adminbar-foreground);
+    background: var(--cms-adminbar-background);
+    font: inherit;
+    text-align: left;
+    text-transform: none;
+    overflow: visible;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+#cms_adminbar .cms-toolbar-dropdown:last-child > ul {
+    right: 0;
+    left: auto;
+}
+
+#cms_adminbar .cms-toolbar-dropdown:hover > ul,
+#cms_adminbar .cms-toolbar-dropdown:focus-within > ul,
+#cms_adminbar .cms-toolbar-dropdown.is-open > ul {
     display: block;
 }
 
-.cms-toolbar-dropdown ul li a {
-    padding: 10px 12px;
+#cms_adminbar .cms-toolbar-dropdown > ul li,
+#cms_adminbar .cms-toolbar-dropdown > ul a {
+    width: 100%;
+}
+
+#cms_adminbar .cms-toolbar-dropdown > ul a {
+    min-height: 40px;
+    padding: 0.65rem 0.8rem;
     white-space: normal;
 }
 
-.cms-toolbar-badge {
+#cms_adminbar .cms-toolbar-badge {
     display: inline-block;
     min-width: 18px;
     padding: 2px 5px;
-    margin-left: 4px;
-    font-size: 11px;
-    line-height: 1;
-    text-align: center;
-    background: #f39c12;
-    color: #fff;
     border-radius: 10px;
+    color: #fff;
+    background: #d97706;
+    font-size: 11px;
+    line-height: 1.2;
+    text-align: center;
 }
 
-.cms-toolbar-badge[hidden] {
+#cms_adminbar .cms-toolbar-badge[hidden] {
     display: none;
 }
 
-.cms-toolbar--bottom {
-    top: auto;
-    bottom: 0;
+#cms_adminbar .adminbar-empty {
+    padding: 0.65rem 0.8rem;
 }
 
-.default-navbar,
-.logo {
+#cms_adminbar .user-image {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* The backend toolbar replaces these backend-only header elements. */
+body.cms-adminbar-context-backend .default-navbar,
+body.cms-adminbar-context-backend .main-header > .logo {
     display: none !important;
 }
 
-@media screen and (max-width: 768px) {
-    body {
-        padding-top: 45px;
-    }
+body.cms-adminbar-context-frontend.cms-adminbar-placement-fallback {
+    padding-top: calc(
+        var(--cms-adminbar-original-padding-top, 0px) + var(--cms-adminbar-height, 45px)
+    ) !important;
+}
 
-    .cms-toolbar > ul {
-        flex-wrap: nowrap;
+.cms-adminbar-spacer {
+    display: block;
+    width: 100%;
+    height: var(--cms-adminbar-height, 45px);
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+    #cms_adminbar .cms-toolbar-base {
         overflow-x: auto;
+        overflow-y: visible;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
         -webkit-overflow-scrolling: touch;
     }
 
-    .cms-toolbar > ul > li {
-        flex: 0 0 auto;
+    #cms_adminbar .cms-toolbar-base > li:last-child {
+        margin-left: 0;
     }
 
-    .cms-toolbar-label {
-        display: none;
+    #cms_adminbar .cms-toolbar-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 
-    .cms-toolbar-dropdown ul {
+    #cms_adminbar .cms-toolbar-dropdown > ul,
+    #cms_adminbar .cms-toolbar-dropdown:last-child > ul {
         position: fixed;
-        top: 45px;
-        left: 0;
+        top: var(--cms-adminbar-height, 45px);
         right: 0;
+        left: 0;
         width: 100%;
         max-width: none;
+        max-height: calc(100vh - var(--cms-adminbar-height, 45px));
+        overflow-y: auto;
+    }
+}
+
+@media print {
+    #cms_adminbar.cms-toolbar {
+        display: none !important;
     }
 }

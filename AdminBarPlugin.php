@@ -26,6 +26,8 @@ use function Qubus\Security\Helpers\t__;
 
 class AdminBarPlugin extends Plugin
 {
+    private bool $rendered = false;
+
     /**
      * @inheritDoc
      * @throws ReflectionException|Exception
@@ -36,7 +38,7 @@ class AdminBarPlugin extends Plugin
             'name' => esc_html__(string: 'AdminBar', domain: 'adminbar'),
             'id' => 'adminbar',
             'author' => 'Joshua Parker',
-            'version' => '3.0.3',
+            'version' => '3.1.0',
             'description' => t__(msgid: 'Adds an admin bar to Devflow site.', domain: 'adminbar'),
             'basename' => plugin_basename(dirname(__FILE__)),
             'path' => plugin_dir_path(dirname(__FILE__)),
@@ -57,18 +59,33 @@ class AdminBarPlugin extends Plugin
      */
     public function handle(): void
     {
-        Action::getInstance()->addAction('init', [$this, 'render'], 1);
-        Action::getInstance()->addAction('cms_admin_head', [$this, 'enqueueCss'], 99);
-        Action::getInstance()->addAction('cms_admin_footer', [$this, 'enqueueJs'], 99);
+        $action = Action::getInstance();
+
+        // The backend has no body-open hook, so render the fixed toolbar in its footer.
+        $action->addAction('cms_admin_head', [$this, 'enqueueCss'], 99);
+        $action->addAction('cms_admin_body_open', [$this, 'render'], 1);
+        $action->addAction('cms_admin_footer', [$this, 'enqueueJs'], 99);
+
+        // Every conforming frontend theme exposes these three CMS lifecycle hooks.
+        $action->addAction('cms_head', [$this, 'enqueueCss'], 99);
+        $action->addAction('cms_body_open', [$this, 'render'], 1);
+        $action->addAction('cms_footer', [$this, 'renderFallback'], 1);
+        $action->addAction('cms_footer', [$this, 'enqueueJs'], 99);
     }
 
     /**
      * @throws ContainerExceptionInterface
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws NotFoundExceptionInterface
      * @throws ReflectionException
      */
     public function enqueueCss(): void
     {
+        if (!is_user_logged_in()) {
+            return;
+        }
+
         cms_enqueue_css(
             config: 'plugin',
             asset: $this->url() . '/css/style.css',
@@ -79,11 +96,17 @@ class AdminBarPlugin extends Plugin
     /**
      * @return void
      * @throws ContainerExceptionInterface
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws NotFoundExceptionInterface
      * @throws ReflectionException
      */
     public function enqueueJs(): void
     {
+        if (!is_user_logged_in()) {
+            return;
+        }
+
         cms_enqueue_js(
             config: 'plugin',
             asset: $this->url() . '/js/adminbar.js',
@@ -98,11 +121,30 @@ class AdminBarPlugin extends Plugin
      * @throws NotFoundExceptionInterface
      * @throws ReflectionException
      */
-    public function render(): void
+    public function render(bool $fallback = false): void
     {
-        if (!is_user_logged_in()) {
+        if ($this->rendered || !is_user_logged_in()) {
             return;
         }
-        echo $this->view->render('plugin::AdminBar/view/index', ['plugin' => $this->meta()]);
+
+        $this->rendered = true;
+        echo $this->view->render(
+            'plugin::AdminBar/view/index',
+            ['plugin' => $this->meta(), 'fallback' => $fallback]
+        );
+    }
+
+    /**
+     * Supports older themes that have a footer hook but no body-open hook.
+     *
+     * @throws ContainerExceptionInterface
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws NotFoundExceptionInterface
+     * @throws ReflectionException
+     */
+    public function renderFallback(): void
+    {
+        $this->render(fallback: true);
     }
 }
