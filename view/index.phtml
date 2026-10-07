@@ -41,6 +41,8 @@ $placement = ($fallback ?? false) ? 'fallback' : 'native';
     class="cms-toolbar"
     role="navigation"
     aria-label="<?= esc_attr__(string: 'Devflow admin toolbar', domain: 'adminbar'); ?>"
+    data-csrf-header="<?= esc_attr(\Codefy\Framework\Helpers\config()->string('csrf.header')); ?>"
+    data-csrf-token="<?= esc_attr((string) \Codefy\Framework\Http\RequestContext::get()->getAttribute('CSRF_TOKEN')); ?>"
     data-admin-url="<?= esc_attr(admin_url()); ?>"
     data-context="<?= esc_attr($context); ?>"
     data-placement="<?= esc_attr($placement); ?>"
@@ -83,7 +85,7 @@ $placement = ($fallback ?? false) ? 'fallback' : 'native';
         <?php else : ?>
             <li>
                 <a href="<?= esc_url(admin_url()); ?>">
-                    <span class="fa fa-dashboard aria-hidden="true"></span>
+                    <span class="fa fa-gauge-high" aria-hidden="true"></span>
                     <?= esc_html((string) get_option(key: 'sitename')); ?>
                 </a>
             </li>
@@ -173,10 +175,13 @@ $placement = ($fallback ?? false) ? 'fallback' : 'native';
         <?php endif; ?>
 
         <li<?= ae('manage:settings'); ?>>
-            <a href="<?= esc_url(admin_url('flush-cache/')); ?>">
-                <span class="fa fa-broom" aria-hidden="true"></span>
-                <?= esc_html__('Flush Cache', $meta['id']); ?>
-            </a>
+            <form method="post" action="<?= esc_url(admin_url('flush-cache/')); ?>" class="cms-toolbar-form">
+                <?= csrf_field(); ?>
+                <button type="submit" class="cms-toolbar-action">
+                    <span class="fa fa-broom" aria-hidden="true"></span>
+                    <?= esc_html__('Flush Cache', $meta['id']); ?>
+                </button>
+            </form>
         </li>
 
         <?php if (current_user_can(perm: 'update:content')) : ?>
@@ -214,15 +219,21 @@ $placement = ($fallback ?? false) ? 'fallback' : 'native';
                 </li>
                 <?php if (is_object($switchUser) && isset($switchUser->id)) : ?>
                     <li>
-                        <a href="<?= esc_url(admin_url(sprintf('user/%s/switch-back/', $switchUser->id))); ?>">
-                    <?= esc_html__('Switch back', $meta['id']); ?>
-                        </a>
+                        <form method="post" action="<?= esc_url(admin_url(sprintf('user/%s/switch-back/', $switchUser->id))); ?>" class="cms-toolbar-form">
+                            <?= csrf_field(); ?>
+                            <button type="submit" class="cms-toolbar-action">
+                                <?= esc_html__('Switch back', $meta['id']); ?>
+                            </button>
+                        </form>
                     </li>
                 <?php endif; ?>
                 <li>
-                    <a href="<?= esc_url(admin_logout_url(admin_login_url())); ?>">
-                        <?= esc_html__('Logout', $meta['id']); ?>
-                    </a>
+                    <form method="post" action="<?= esc_url(admin_logout_url(admin_login_url())); ?>" class="cms-toolbar-form">
+                        <?= csrf_field(); ?>
+                        <button type="submit" class="cms-toolbar-action">
+                            <?= esc_html__('Logout', $meta['id']); ?>
+                        </button>
+                    </form>
                 </li>
             </ul>
         </li>

@@ -157,14 +157,16 @@
 
         var data = new URLSearchParams();
         data.set('notification_id', notificationId);
+        var headers = {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'X-Requested-With': 'XMLHttpRequest'
+        };
+        headers[root.dataset.csrfHeader] = root.dataset.csrfToken;
 
         window.fetch(adminUrl('content-notifications/read/'), {
             method: 'POST',
             credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
+            headers: headers,
             body: data.toString()
         }).catch(function () {
             // Navigation should continue even if marking the item fails.

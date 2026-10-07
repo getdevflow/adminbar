@@ -6,6 +6,7 @@ namespace Plugin\AdminBar;
 
 use App\Infrastructure\Services\Plugin;
 use App\Shared\Services\Registry;
+use App\Shared\Services\Utils;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -20,7 +21,9 @@ use function App\Shared\Helpers\plugin_basename;
 use function App\Shared\Helpers\plugin_dir_path;
 use function App\Shared\Helpers\plugin_url;
 use function dirname;
+use function function_exists;
 use function get_class;
+use function phpb_in_editmode;
 use function Qubus\Security\Helpers\esc_html__;
 use function Qubus\Security\Helpers\t__;
 
@@ -38,7 +41,7 @@ class AdminBarPlugin extends Plugin
             'name' => esc_html__(string: 'AdminBar', domain: 'adminbar'),
             'id' => 'adminbar',
             'author' => 'Joshua Parker',
-            'version' => '3.1.0',
+            'version' => '4.0.0',
             'description' => t__(msgid: 'Adds an admin bar to Devflow site.', domain: 'adminbar'),
             'basename' => plugin_basename(dirname(__FILE__)),
             'path' => plugin_dir_path(dirname(__FILE__)),
@@ -82,8 +85,17 @@ class AdminBarPlugin extends Plugin
      */
     public function enqueueCss(): void
     {
-        if (!is_user_logged_in()) {
+        if (!$this->shouldDisplay()) {
             return;
+        }
+
+        // Admin screens already load Font Awesome; frontend themes may use a different icon library.
+        if (!Utils::isAdmin()) {
+            cms_enqueue_css(
+                config: 'plugin',
+                asset: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css',
+                slug: $this->id()
+            );
         }
 
         cms_enqueue_css(
@@ -103,7 +115,7 @@ class AdminBarPlugin extends Plugin
      */
     public function enqueueJs(): void
     {
-        if (!is_user_logged_in()) {
+        if (!$this->shouldDisplay()) {
             return;
         }
 
@@ -123,7 +135,7 @@ class AdminBarPlugin extends Plugin
      */
     public function render(bool $fallback = false): void
     {
-        if ($this->rendered || !is_user_logged_in()) {
+        if ($this->rendered || !$this->shouldDisplay()) {
             return;
         }
 
@@ -146,5 +158,24 @@ class AdminBarPlugin extends Plugin
     public function renderFallback(): void
     {
         $this->render(fallback: true);
+    }
+
+    /**
+     * Keep the toolbar and its assets out of Vihzhuo's editable canvas.
+     *
+     * @return bool
+     * @throws ContainerExceptionInterface
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws NotFoundExceptionInterface
+     * @throws ReflectionException
+     */
+    private function shouldDisplay(): bool
+    {
+        if (function_exists('phpb_in_editmode') && phpb_in_editmode()) {
+            return false;
+        }
+
+        return is_user_logged_in();
     }
 }
